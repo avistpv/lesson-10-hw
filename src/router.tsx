@@ -1,7 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom'
-import {TaskListPage} from './features/tasks/pages/TaskListPage'
-import {TaskDetailsPage} from './features/tasks/pages/TaskDetailsPage'
-import {CreateTaskPage} from './features/tasks/pages/CreateTaskPage'
+import {TaskListPage} from './features/tasks/pages/TaskListPage/TaskListPage.tsx'
+import {TaskDetailsPage} from './features/tasks/pages/TaskDetailsPage/TaskDetailsPage.tsx'
+import {CreateTaskPage} from './features/tasks/pages/CreateTaskPage/CreateTaskPage.tsx'
 import Layout from './shared/components/Layout'
 
 const router = createBrowserRouter([

@@ -11,11 +11,3 @@ export interface Task {
     completed: boolean
     createdAt?: string
 }
-
-export interface CreateTaskInput {
-    title: string
-    description?: string
-    status: TaskStatus
-    priority: TaskPriority
-    deadline?: string
-}

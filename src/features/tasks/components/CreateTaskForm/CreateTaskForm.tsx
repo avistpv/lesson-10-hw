@@ -1,34 +1,11 @@
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
-import {z} from 'zod'
-import type {CreateTaskInput} from '../types'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { taskSchema, type TaskFormData } from '../../schema.ts'
 import './CreateTaskForm.css'
 
-const taskSchema = z.object({
-    title: z.string().min(3, 'Title must be at least 3 characters'),
-    description: z.string().optional(),
-    status: z.enum(['pending', 'in-progress', 'completed']),
-    priority: z.enum(['low', 'medium', 'high']),
-    deadline: z.string().optional().refine(
-        (date) => {
-            if (!date) return true
-            const selectedDate = new Date(date)
-            const today = new Date()
-            today.setHours(0, 0, 0, 0)
-            selectedDate.setHours(0, 0, 0, 0)
-            return selectedDate >= today
-        },
-        {
-            message: 'Deadline cannot be in the past',
-        }
-    ),
-})
-
-type TaskFormData = z.infer<typeof taskSchema>
-
 interface CreateTaskFormProps {
-    onSubmit: (data: CreateTaskInput) => Promise<void>
-    isLoading?: boolean
+  onSubmit: (data: TaskFormData) => Promise<void>
+  isLoading?: boolean
 }
 
 export const CreateTaskForm = ({onSubmit, isLoading = false}: CreateTaskFormProps) => {

@@ -1,4 +1,5 @@
-import type {Task, CreateTaskInput} from './types'
+import type {Task} from './types'
+import type {TaskFormData} from './schema'
 
 const API_BASE_URL = 'http://localhost:3001'
 
@@ -19,7 +20,7 @@ export const tasksApi = {
         return response.json()
     },
 
-    create: async (task: CreateTaskInput): Promise<Task> => {
+    create: async (task: TaskFormData): Promise<Task> => {
         const response = await fetch(`${API_BASE_URL}/tasks`, {
             method: 'POST',
             headers: {
@@ -28,7 +29,7 @@ export const tasksApi = {
             body: JSON.stringify({
                 ...task,
                 completed: task.status === 'completed',
-                createdAt: new Date().toISOString(),
+                createdAt: new Date(),
             }),
         })
         if (!response.ok) {

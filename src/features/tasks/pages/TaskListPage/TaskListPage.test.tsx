@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import { TaskListPage } from './TaskListPage'
-import { tasksApi } from '../api'
-import type { Task } from '../types'
+import { TaskListPage } from './TaskListPage.tsx'
+import { tasksApi } from '../../api.ts'
+import type { Task } from '../../types.ts'
 
 vi.mock('../api')
 

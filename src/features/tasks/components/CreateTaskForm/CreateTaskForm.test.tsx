@@ -1,7 +1,7 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
 import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {CreateTaskForm} from './CreateTaskForm'
+import {CreateTaskForm} from './CreateTaskForm.tsx'
 
 describe('CreateTaskForm', () => {
     const mockOnSubmit = vi.fn()
@@ -24,12 +24,10 @@ describe('CreateTaskForm', () => {
 
         const titleInput = screen.getByLabelText(/task name/i)
 
-        // Enter invalid title (less than 3 characters)
         await user.type(titleInput, 'ab')
 
         const submitButton = screen.getByRole('button', {name: /create task/i})
 
-        // Wait for validation
         await waitFor(() => {
             expect(submitButton).toBeDisabled()
         })
@@ -41,12 +39,10 @@ describe('CreateTaskForm', () => {
 
         const titleInput = screen.getByLabelText(/task name/i)
 
-        // Enter valid title (at least 3 characters)
         await user.type(titleInput, 'Valid Task Name')
 
         const submitButton = screen.getByRole('button', {name: /create task/i})
 
-        // Wait for validation
         await waitFor(() => {
             expect(submitButton).not.toBeDisabled()
         })
@@ -58,7 +54,6 @@ describe('CreateTaskForm', () => {
 
         const titleInput = screen.getByLabelText(/task name/i)
 
-        // Enter invalid title and blur to trigger validation
         await user.type(titleInput, 'ab')
         await user.tab()
 
@@ -73,7 +68,6 @@ describe('CreateTaskForm', () => {
 
         const titleInput = screen.getByLabelText(/task name/i)
 
-        // Focus and blur without entering anything
         await user.click(titleInput)
         await user.tab()
 
@@ -89,10 +83,8 @@ describe('CreateTaskForm', () => {
         const titleInput = screen.getByLabelText(/task name/i)
         const deadlineInput = screen.getByLabelText(/deadline/i)
 
-        // Enter valid title
         await user.type(titleInput, 'Valid Task Name')
 
-        // Set deadline to yesterday
         const yesterday = new Date()
         yesterday.setDate(yesterday.getDate() - 1)
         const yesterdayString = yesterday.toISOString().split('T')[0]
@@ -117,7 +109,6 @@ describe('CreateTaskForm', () => {
         const statusSelect = screen.getByLabelText(/status/i)
         const prioritySelect = screen.getByLabelText(/priority/i)
 
-        // Fill in the form
         await user.type(titleInput, 'New Task')
         await user.type(descriptionInput, 'Task description')
         await user.selectOptions(statusSelect, 'in-progress')
@@ -137,7 +128,7 @@ describe('CreateTaskForm', () => {
                 description: 'Task description',
                 status: 'in-progress',
                 priority: 'high',
-                deadline: '', // Empty date input returns empty string
+                deadline: '',
             })
         })
     })
